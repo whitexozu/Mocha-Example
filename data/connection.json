@@ -1,0 +1,58 @@
+{
+    "Version": [{
+        "name": "Version",
+        "type": "get",
+        "url": "/API/Version",
+        "req": {},
+        "res": {
+            "Success": true,
+            "Version": "master",
+            "Revision": "270b9b2"
+        }
+    }],
+    "Connection": [{
+        "name": "GetConnectionList",
+        "type": "get",
+        "url": "/API/GetConnectionList",
+        "req": {},
+        "res": {
+            "Success": true,
+            "Connections": [{
+                "ConnectionName": "test conneciton name",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "test connection string",
+                "Initializer": "test initializer",
+                "SequenceTable": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }]
+        }
+    }, {
+        "name": "RemoveConnection",
+        "type": "post",
+        "url": "/API/RemoveConnection",
+        "req": {
+            "ConnectionName": "test conneciton name"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "AddConnection",
+        "type": "post",
+        "url": "/API/AddConnection",
+        "req": {
+            "ConnectionName": "test conneciton name",
+            "ConnectionType": "ODBC",
+            "ConnectionString": "test connection string",
+            "Initializer": "test initializer",
+            "Opaque": {
+                "opaque": "111"
+            }
+        },
+        "res": {
+            "Success": true
+        }
+    }]
+}
