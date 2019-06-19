@@ -3,28 +3,35 @@ const app = require('../app');
 // const should = require('chai').should();
 // var server = supertest.agent("http://localhost:9671");
 // const assert = require('assert');  // Node.js `assert` module
+
 const conn = require('../data/connection.json')
-let describeName
 
-describeName = 'Version';
-describe(describeName,function(){
-  conn[describeName].forEach((data) => {
-    it(data.name, function (done) {
-      app.get(done, data);
-    });
-  });
-});
+let use = !true;
+let req, res;
+let describeName = 'Connection';
+let itName = 'RemoveConnection';
+// let itName = 'GetConnectionList';
+req = {
+  "ConnectionName": "test conneciton name"
+};
+res = {
+  "Success": true
+}
 
-describeName = 'Connection';
-describe(describeName,function(){
+if ( !use ) return;
+describe('Customize',function(){
   conn[describeName].forEach((data) => {
-    it(data.name, function (done) {
-      let type = data.type;
-      if( type == 'post' ) {
-        app.post(done, data);
-      } else if( type == 'get' ) {
-        app.get(done, data);
-      }
-    });
+    if ( data.name == itName ) {
+      it(itName, function (done) {
+        let type = data.type;
+        data.req = req === undefined ? data.req : req;
+        data.res = res === undefined ? data.res : res;
+        if( type == 'post' ) {
+          app.post(done, data);
+        } else if( type == 'get' ) {
+          app.get(done, data);
+        }
+      });
+    }
   });
 });

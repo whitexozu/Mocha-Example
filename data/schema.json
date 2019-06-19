@@ -1,0 +1,12 @@
+{
+    "Schema": [{
+        "name": "GetSchemaList",
+        "type": "post",
+        "url": "/API/GetSchemaList",
+        "req": {
+            "ConnectionName": "2222"
+        },
+        "res": {
+        }
+    }]
+}

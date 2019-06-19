@@ -1,0 +1,12 @@
+{
+    "Sequence": [{
+        "name": "GetSequences",
+        "type": "post",
+        "url": "/API/GetSequences",
+        "req": {
+            "ConnectionName": "2222"
+        },
+        "res": {
+        }
+    }]
+}

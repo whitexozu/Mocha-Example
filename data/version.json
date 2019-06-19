@@ -1,0 +1,13 @@
+{
+    "Version": [{
+        "name": "Version",
+        "type": "get",
+        "url": "/API/Version",
+        "req": {},
+        "res": {
+            "Success": true,
+            "Version": "master",
+            "Revision": "270b9b2"
+        }
+    }]
+}

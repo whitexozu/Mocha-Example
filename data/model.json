@@ -1,0 +1,11 @@
+{
+    "Model": [{
+        "name": "GetModelList",
+        "type": "post",
+        "url": "/API/GetModelList",
+        "req": {
+        },
+        "res": {
+        }
+    }]
+}

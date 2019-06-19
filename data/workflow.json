@@ -1,0 +1,11 @@
+{
+    "Workflow": [{
+        "name": "GetWorkflowList",
+        "type": "post",
+        "url": "/API/GetWorkflowList",
+        "req": {
+        },
+        "res": {
+        }
+    }]
+}
