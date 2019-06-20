@@ -1,12 +1,132 @@
 {
     "Sequence": [{
-        "name": "GetSequences",
+        "name": "AddConnection",
         "type": "post",
-        "url": "/API/GetSequences",
+        "url": "/API/AddConnection",
         "req": {
-            "ConnectionName": "2222"
+            "ConnectionName": "agens graph connection",
+            "ConnectionType": "AgensGraph",
+            "ConnectionString": "host=localhost port=5432",
+            "Initializer": "SET GRAPH_PATH TO GRAPH",
+            "Opaque": {
+                "opaque": "111"
+            }
         },
         "res": {
+            "Success": true
+        }
+    }, {
+        "name": "TestConnection",
+        "type": "post",
+        "url": "/API/TestConnection",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "CreateSequence",
+        "type": "post",
+        "url": "/API/CreateSequence",
+        "req": {
+            "ConnectionName": "agens graph connection",
+            "SequenceTable": "test sequence name"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSequence",
+        "type": "post",
+        "url": "/API/GetSequence",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true,
+            "SequenceTable": "test sequence name",
+            "SequenceRows": []
+        }
+    }, {
+        "name": "ModifySequence",
+        "type": "post",
+        "url": "/API/ModifySequence",
+        "req": {
+            "ConnectionName": "agens graph connection",
+            "Query": "query modify"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSequence",
+        "type": "post",
+        "url": "/API/GetSequence",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true,
+            "SequenceTable": "test sequence name",
+            "SequenceRows": []
+        }
+    }, {
+        "name": "ClearSequence",
+        "type": "post",
+        "url": "/API/ClearSequence",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSequence",
+        "type": "post",
+        "url": "/API/GetSequence",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true,
+            "SequenceTable": "test sequence name",
+            "SequenceRows": []
+        }
+    }, {
+        "name": "RemoveSequence",
+        "type": "post",
+        "url": "/API/RemoveSequence",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSequence",
+        "type": "post",
+        "url": "/API/GetSequence",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": false,
+            "ErrorCode": -1,
+            "ErrorFile": ["sources/ahTestPQ.c", "sources/ahTestPQ.c"],
+            "ErrorLine": [234, 82],
+            "ErrorFunc": ["getSequence", "main"],
+            "ErrorMessage": "SEQUENCETABLE NOT EXISTS: agens graph connection"
+        }
+    }, {
+        "name": "RemoveConnection",
+        "type": "post",
+        "url": "/API/RemoveConnection",
+        "req": {
+            "ConnectionName": "agens graph connection"
+        },
+        "res": {
+            "Success": true
         }
     }]
 }

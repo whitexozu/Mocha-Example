@@ -2,6 +2,7 @@
     "Version": [{
         "name": "Version",
         "type": "get",
+        "contentType": "/json/",
         "url": "/API/Version",
         "req": {},
         "res": {

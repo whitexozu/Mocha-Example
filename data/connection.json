@@ -4,16 +4,28 @@
         "type": "post",
         "url": "/API/AddConnection",
         "req": {
-            "ConnectionName": "test conneciton name",
+            "ConnectionName": "odbc connection",
             "ConnectionType": "ODBC",
-            "ConnectionString": "test connection string",
-            "Initializer": "test initializer",
+            "ConnectionString": "DSN=agensgraph",
+            "Initializer": "SET GRAPH_PATH TO GRAPH",
             "Opaque": {
                 "opaque": "111"
             }
         },
         "res": {
             "Success": true
+        }
+    }, {
+        "name": "TestConnection",
+        "type": "post",
+        "url": "/API/TestConnection",
+        "req": {
+            "ConnectionName": "odbc connection"
+        },
+        "res": {
+            "Success": true,
+            "DBMSName": "PostgreSQL",
+            "DBMSVersion": "10.0.4"
         }
     }, {
         "name": "GetConnectionList",
@@ -23,10 +35,10 @@
         "res": {
             "Success": true,
             "Connections": [{
-                "ConnectionName": "test conneciton name",
+                "ConnectionName": "odbc connection",
                 "ConnectionType": "ODBC",
-                "ConnectionString": "test connection string",
-                "Initializer": "test initializer",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
                 "SequenceTable": "",
                 "Opaque": {
                     "opaque": "111"
@@ -38,7 +50,7 @@
         "type": "post",
         "url": "/API/RemoveConnection",
         "req": {
-            "ConnectionName": "test conneciton name"
+            "ConnectionName": "odbc connection"
         },
         "res": {
             "Success": true

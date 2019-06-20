@@ -1,12 +1,266 @@
 {
     "Schema": [{
-        "name": "GetSchemaList",
-        "type": "post",
-        "url": "/API/GetSchemaList",
-        "req": {
-            "ConnectionName": "2222"
+            "name": "AddConnection (odbc)",
+            "type": "post",
+            "url": "/API/AddConnection",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "TestConnection (odbc)",
+            "type": "post",
+            "url": "/API/TestConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true,
+                "DBMSName": "PostgreSQL",
+                "DBMSVersion": "10.0.4"
+            }
+        }, {
+            "name": "AddSchema (odbc)",
+            "type": "post",
+            "url": "/API/AddSchema",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1",
+                "TableType": "Table",
+                "Columns": [{
+                    "ColumnName": "c1",
+                    "ColumnType": "integer",
+                    "ColumnSize": 0,
+                    "DecimalDigit": 0
+                }, {
+                    "ColumnName": "c2",
+                    "ColumnType": "text",
+                    "ColumnSize": 8190,
+                    "DecimalDigit": 0
+                }],
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "GetSchema (odbc)",
+            "type": "post",
+            "url": "/API/GetSchema",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1",
+                "TableType": "Table",
+                "Columns": [{
+                    "ColumnName": "c1",
+                    "Expression": "",
+                    "ColumnType": "integer",
+                    "ColumnSize": 0,
+                    "DecimalDigit": 0
+                }, {
+                    "ColumnName": "c2",
+                    "Expression": "",
+                    "ColumnType": "text",
+                    "ColumnSize": 8190,
+                    "DecimalDigit": 0
+                }],
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }
+        }, {
+            "name": "GetSchemaList (odbc)",
+            "type": "post",
+            "url": "/API/GetSchemaList",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "odbc connection",
+                "Tables": [{
+                    "CatalogName": "catalog",
+                    "SchemaName": "public",
+                    "TableName": "t1",
+                    "TableType": "Table",
+                    "SequenceColumn": "",
+                    "Opaque": {
+                        "opaque": "111"
+                    }
+                }]
+            }
+        }, {
+            "name": "CollectSchema (odbc)",
+            "type": "post",
+            "url": "/API/CollectSchema",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true
+            }
+
+
+
+
+
+
+        }, {
+            "name": "RemoveSchema (odbc)",
+            "type": "post",
+            "url": "/API/RemoveSchema",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "RemoveConnection (odbc)",
+            "type": "post",
+            "url": "/API/RemoveConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "AddConnection (AgensGarph)",
+            "type": "post",
+            "url": "/API/AddConnection",
+            "req": {
+                "ConnectionName": "agens graph connection",
+                "ConnectionType": "AgensGraph",
+                "ConnectionString": "host=localhost port=5432",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "TestConnection (AgensGarph)",
+            "type": "post",
+            "url": "/API/TestConnection",
+            "req": {
+                "ConnectionName": "agens graph connection"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "AddSchema (AgensGarph, Vertex)",
+            "type": "post",
+            "url": "/API/AddSchema",
+            "req": {
+                "ConnectionName": "agens graph connection",
+                "TableName": "ag_vertex",
+                "TableType": "Vertex"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "AddSchema (AgensGarph, Edge)",
+            "type": "post",
+            "url": "/API/AddSchema",
+            "req": {
+                "ConnectionName": "agens graph connection",
+                "TableName": "ag_edge",
+                "TableType": "Edge"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "GetSchemaList (AgensGarph)",
+            "type": "post",
+            "url": "/API/GetSchemaList",
+            "req": {
+                "ConnectionName": "agens graph connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "agens graph connection",
+                "Tables": [{
+                    "CatalogName": "",
+                    "SchemaName": "",
+                    "TableName": "ag_edge",
+                    "TableType": "Edge",
+                    "SequenceColumn": "",
+                    "Opaque": {}
+                }, {
+                    "CatalogName": "",
+                    "SchemaName": "",
+                    "TableName": "ag_vertex",
+                    "TableType": "Vertex",
+                    "SequenceColumn": "",
+                    "Opaque": {}
+                }]
+            }
+        }, {
+            "name": "RemoveSchema (AgensGarph - vertex)",
+            "type": "post",
+            "url": "/API/RemoveSchema",
+            "req": {
+                "ConnectionName": "agens graph connection",
+                "TableName": "ag_vertex"
+            },
+            "res": {
+                "Success": true
+            }
         },
-        "res": {
+        {
+            "name": "RemoveSchema (AgensGarph - edge)",
+            "type": "post",
+            "url": "/API/RemoveSchema",
+            "req": {
+                "ConnectionName": "agens graph connection",
+                "TableName": "ag_edge"
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "RemoveConnection (AgensGarph)",
+            "type": "post",
+            "url": "/API/RemoveConnection",
+            "req": {
+                "ConnectionName": "agens graph connection"
+            },
+            "res": {
+                "Success": true
+            }
         }
-    }]
+    ]
 }
