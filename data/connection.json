@@ -1,59 +1,102 @@
 {
-    "Connection": [{
-        "name": "AddConnection",
-        "type": "post",
-        "url": "/API/AddConnection",
-        "req": {
-            "ConnectionName": "odbc connection",
-            "ConnectionType": "ODBC",
-            "ConnectionString": "DSN=agensgraph",
-            "Initializer": "SET GRAPH_PATH TO GRAPH",
-            "Opaque": {
-                "opaque": "111"
-            }
-        },
-        "res": {
-            "Success": true
-        }
-    }, {
-        "name": "TestConnection",
-        "type": "post",
-        "url": "/API/TestConnection",
-        "req": {
-            "ConnectionName": "odbc connection"
-        },
-        "res": {
-            "Success": true,
-            "DBMSName": "PostgreSQL",
-            "DBMSVersion": "10.0.4"
-        }
-    }, {
-        "name": "GetConnectionList",
-        "type": "get",
-        "url": "/API/GetConnectionList",
-        "req": {},
-        "res": {
-            "Success": true,
-            "Connections": [{
+    "Connection": [
+        {
+            "name": "AddConnection",
+            "type": "post",
+            "url": "/API/AddConnection",
+            "req": {
                 "ConnectionName": "odbc connection",
                 "ConnectionType": "ODBC",
                 "ConnectionString": "DSN=agensgraph",
                 "Initializer": "SET GRAPH_PATH TO GRAPH",
-                "SequenceTable": "",
                 "Opaque": {
                     "opaque": "111"
                 }
-            }]
-        }
-    }, {
-        "name": "RemoveConnection",
-        "type": "post",
-        "url": "/API/RemoveConnection",
-        "req": {
-            "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true
+            }
         },
-        "res": {
-            "Success": true
+        {
+            "name": "GetConnection",
+            "type": "post",
+            "url": "/API/GetConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "SequenceTable":"",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }
+        },
+        {
+            "name": "TestConnection",
+            "type": "post",
+            "url": "/API/TestConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true,
+                "DBMSName": "PostgreSQL",
+                "DBMSVersion": "10.0.4"
+            }
+        },
+        {
+            "name": "GetConnectionList",
+            "type": "get",
+            "url": "/API/GetConnectionList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "Connections": [
+                    {
+                        "ConnectionName": "odbc connection",
+                        "ConnectionType": "ODBC",
+                        "ConnectionString": "DSN=agensgraph",
+                        "Initializer": "SET GRAPH_PATH TO GRAPH",
+                        "SequenceTable": "",
+                        "Opaque": {
+                            "opaque": "111"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "ModifyConnection",
+            "type": "post",
+            "url": "/API/ModifyConnection",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "Opaque": {
+                    "opaque": "1111"
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "RemoveConnection",
+            "type": "post",
+            "url": "/API/RemoveConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true
+            }
         }
-    }]
+    ]
 }

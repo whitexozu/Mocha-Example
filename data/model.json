@@ -1,11 +1,169 @@
 {
-    "Model": [{
-        "name": "GetModelList",
-        "type": "post",
-        "url": "/API/GetModelList",
-        "req": {
+    "Model": [
+        {
+            "name": "AddModel-model1",
+            "type": "post",
+            "url": "/API/AddModel",
+            "req": {
+                "ModelName": "model1",
+                "Summery": {
+                    "Summery": ""
+                },
+                "Model": {
+                    "Model": ""
+                }
+            },
+            "res": {
+                "Success": true
+            }
         },
-        "res": {
+        {
+            "name": "GetModel-model1",
+            "type": "post",
+            "url": "/API/GetModel",
+            "req": {
+                "ModelName": "model1"
+            },
+            "res": {
+                "Success": true,
+                "ModelName": "model1",
+                "Summery": {
+                    "Summery": ""
+                },
+                "Model": {
+                    "Model": ""
+                }
+            }
+        },
+        {
+            "name": "AddModel-model2",
+            "type": "post",
+            "url": "/API/AddModel",
+            "req": {
+                "ModelName": "model2",
+                "Summery": {
+                    "Summery": ""
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "GetModel-model2",
+            "type": "post",
+            "url": "/API/GetModel",
+            "req": {
+                "ModelName": "model2"
+            },
+            "res": {
+                "Success": true,
+                "ModelName": "model2",
+                "Summery": {
+                    "Summery": ""
+                },
+                "Model": {}
+            }
+        },
+        {
+            "name": "ModifyModel-model2",
+            "type": "post",
+            "url": "/API/ModifyModel",
+            "req": {
+                "ModelName": "model2",
+                "Model": {
+                    "Model": ""
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "ModifyModel-model1",
+            "type": "post",
+            "url": "/API/ModifyModel",
+            "req": {
+                "ModelName": "model1",
+                "Summery": {
+                    "Summery": ""
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "GetModelList-model1,model2",
+            "type": "post",
+            "url": "/API/GetModelList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "Models": [
+                    {
+                        "ModelName": "model1",
+                        "Summery": {
+                            "Summery": ""
+                        }
+                    },
+                    {
+                        "ModelName": "model2",
+                        "Summery": {
+                            "Summery": ""
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "RemoveModel-model1",
+            "type": "post",
+            "url": "/API/RemoveModel",
+            "req": {
+                "ModelName": "model1"
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "GetModelList-model2",
+            "type": "post",
+            "url": "/API/GetModelList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "Models": [
+                    {
+                        "ModelName": "model2",
+                        "Summery": {
+                            "Summery": ""
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "RemoveModel-model2",
+            "type": "post",
+            "url": "/API/RemoveModel",
+            "req": {
+                "ModelName": "model2"
+            },
+            "res": {
+                "Success": true
+            }
+        },
+        {
+            "name": "GetModelList-null",
+            "type": "post",
+            "url": "/API/GetModelList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "Models": []
+            }
         }
-    }]
+    ]
 }
