@@ -6,13 +6,15 @@ const app = require('../app');
 
 // const conn = require('../data/connection.json')
 // const conn = require('../data/sequence.json')
-const conn = require('../data/schema.json')
+// const conn = require('../data/schema.json')
+const conn = require('../data/workflow.json')
 
 let use = true;
 let req, res;
 // let describeName = 'Connection';
 // let describeName = 'Sequence';
-let describeName = 'Schema';
+// let describeName = 'Schema';
+let describeName = 'Workflow';
 
 
 // let itName = 'GetConnectionList';
@@ -22,19 +24,36 @@ let describeName = 'Schema';
 // let itName = 'GetSequences';
 // let itName = 'CreateSequence';
 
-let itName = 'GetSchemaList (AgensGarph)';
+
 // let itName = 'RemoveSchema (odbc)';
 // let itName = 'RemoveSchema (AgensGarph - vertex)';
 // let itName = 'RemoveSchema (AgensGarph - edge)';
+
+
+// let itName = 'AddWorkflow';
+// let itName = 'GetWorkflowList';
+// let itName = 'GetWorkflow';
+// let itName = 'StartWorkflow';
+
+
+// let itName = 'ModifyWorkflow';
+// let itName = 'GetWorkflowStatusList';
+
+// let itName = 'StopWorkflow';
+// let itName = 'GetWorkSwitch';
+// let itName = 'SetWorkSwitch';
+let itName = 'RemoveWorkflow';
+
+
 
 // req = {
 //   // "ConnectionName": "test connection name"
 //   // "ConnectionName": "agens graph connection"
 //   "ConnectionName": "pq"
 // };
-res = {
-  "Success": true
-}
+// res = {
+//   "Success": true
+// }
 
 if ( !use ) return;
 describe('Customize',function(){

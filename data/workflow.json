@@ -3,9 +3,774 @@
         "name": "GetWorkflowList",
         "type": "post",
         "url": "/API/GetWorkflowList",
+        "req": {},
+        "res": {
+            "Success": true,
+            "WorkflowNames": ["basic", "json"]
+        }
+    }, {
+        "name": "AddWorkflow",
+        "type": "post",
+        "url": "/API/AddWorkflow",
         "req": {
+            "WorkflowName": "workflow name",
+            "Workflow": {
+                "Work": {
+                    "Extract": {
+                        "Command": "bin/ahwJSON",
+                        "Parameter": {
+                            "Filename": "unittest/basic.in"
+                        },
+                        "Switch": {
+                            "Paused": true
+                        }
+                    },
+                    "Transform": {
+                        "Command": "bin/ahwBasicTransformer",
+                        "Parameter": {
+                            "Transform": [{
+                                    "Name": "DISTRIBUTE",
+                                    "Filter": {
+                                        "Name": ["DISTRIBUTE"]
+                                    },
+                                    "Action": [{
+                                        "Distribute": {
+                                            "Key": ["KEY1", "KEY2"]
+                                        }
+                                    }],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "EXTRACT",
+                                    "Filter": {
+                                        "Name": ["EXTRACT"]
+                                    },
+                                    "Action": [{
+                                            "Extract": {
+                                                "Name": "EXTRACTED1",
+                                                "Field": ["COL3", "COL1"]
+                                            }
+                                        },
+                                        {
+                                            "Extract": {
+                                                "Name": "EXTRACTED2",
+                                                "Field": ["COL1"]
+                                            }
+                                        }
+                                    ],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "EXTRACTED1-2",
+                                    "Filter": {
+                                        "Name": ["EXTRACTED1", "EXTRACTED2"]
+                                    },
+                                    "Action": [{
+                                            "Extract": {
+                                                "Name": "EXTRACTED3",
+                                                "Field": ["COL1"]
+                                            }
+                                        },
+                                        {
+                                            "Extract": {
+                                                "Name": "EXTRACTED4",
+                                                "Field": ["COL3"]
+                                            }
+                                        }
+                                    ],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "EXTRACTED1-4",
+                                    "Filter": {
+                                        "Name": ["EXTRACTED1", "EXTRACTED2", "EXTRACTED3", "EXTRACTED4"]
+                                    },
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "RENAME",
+                                    "Filter": {
+                                        "Name": ["RENAME"]
+                                    },
+                                    "Action": [{
+                                        "Rename": {
+                                            "Field": "COL1"
+                                        }
+                                    }],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "STORE",
+                                    "Filter": {
+                                        "Name": ["STORE"]
+                                    },
+                                    "Action": [{
+                                            "Store": {
+                                                "Name": "STORED",
+                                                "Key": ["k1", "k2", "k3", "k4", "k5", "k6", "k7"],
+                                                "Field": ["v1", "v2", "v3", "v4", "v5", "v6", "v7"]
+                                            }
+                                        },
+                                        {
+                                            "Purge": true
+                                        }
+                                    ],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "MERGE",
+                                    "Filter": {
+                                        "Name": ["MERGE"]
+                                    },
+                                    "Action": [{
+                                        "Merge": {
+                                            "Name": "STORED",
+                                            "Key": ["k1", "k2", "k3", "k4", "k5", "k6", "k7"]
+                                        }
+                                    }],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "REMOVE",
+                                    "Filter": {
+                                        "Name": ["REMOVE"]
+                                    },
+                                    "Action": [{
+                                        "Remove": {
+                                            "Field": ["COL2"]
+                                        }
+                                    }],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "PARSE",
+                                    "Filter": {
+                                        "Name": ["PARSE"]
+                                    },
+                                    "Action": [{
+                                        "Parse": {
+                                            "Field": "COL2"
+                                        }
+                                    }],
+                                    "Continue": true
+                                },
+                                {
+                                    "Name": "PARSE",
+                                    "Filter": {
+                                        "Name": ["PARSE"]
+                                    },
+                                    "Action": [{
+                                        "Remove": {
+                                            "Field": ["COL2"]
+                                        }
+                                    }],
+                                    "Continue": false
+                                },
+                                {
+                                    "Name": "DUPLICATED",
+                                    "Filter": {
+                                        "Name": ["DUPLICATED"]
+                                    },
+                                    "Action": [{
+                                        "Remove": {
+                                            "Field": ["COL1", "COL2", "COL3", "COL2"]
+                                        }
+                                    }],
+                                    "Continue": true
+                                },
+                                {
+                                    "Name": "PURGE",
+                                    "Action": [{
+                                        "Purge": true
+                                    }]
+                                }
+                            ]
+                        },
+                        "Switch": {
+                            "Paused": true
+                        }
+                    },
+                    "Load1": {
+                        "Command": "bin/ahwJSON",
+                        "Parameter": {
+                            "Filename": "unittest/basic1.out"
+                        }
+                    },
+                    "Load2": {
+                        "Command": "bin/ahwJSON",
+                        "Parameter": {
+                            "Filename": "unittest/basic2.out"
+                        }
+                    }
+                },
+                "Pipe": [{
+                        "Type": "SimpleV1",
+                        "Source": {
+                            "Work": "Extract",
+                            "Pipe": "BSONOut[0]"
+                        },
+                        "Target": {
+                            "Work": "Transform",
+                            "Pipe": "In[0]"
+                        }
+                    },
+                    {
+                        "Type": "SimpleV1",
+                        "Source": {
+                            "Work": "Transform",
+                            "Pipe": "Out[0]"
+                        },
+                        "Target": {
+                            "Work": "Load1",
+                            "Pipe": "BSONIn[0]"
+                        }
+                    },
+                    {
+                        "Type": "SimpleV1",
+                        "Source": {
+                            "Work": "Transform",
+                            "Pipe": "Out[1]"
+                        },
+                        "Target": {
+                            "Work": "Load2",
+                            "Pipe": "BSONIn[0]"
+                        }
+                    }
+                ]
+            },
+            "Favorite": true
         },
         "res": {
+            "Success": true,
+            "Work": {
+                "Extract": {
+                    "Command": "bin/ahwJSON",
+                    "Parameter": {
+                        "Filename": "unittest/basic.in"
+                    },
+                    "Switch": {
+                        "Paused": true
+                    }
+                },
+                "Transform": {
+                    "Command": "bin/ahwBasicTransformer",
+                    "Parameter": {
+                        "Transform": [{
+                            "Name": "DISTRIBUTE",
+                            "Filter": {
+                                "Name": ["DISTRIBUTE"]
+                            },
+                            "Action": [{
+                                "Distribute": {
+                                    "Key": ["KEY1", "KEY2"]
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "EXTRACT",
+                            "Filter": {
+                                "Name": ["EXTRACT"]
+                            },
+                            "Action": [{
+                                "Extract": {
+                                    "Name": "EXTRACTED1",
+                                    "Field": ["COL3", "COL1"]
+                                }
+                            }, {
+                                "Extract": {
+                                    "Name": "EXTRACTED2",
+                                    "Field": ["COL1"]
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "EXTRACTED1-2",
+                            "Filter": {
+                                "Name": ["EXTRACTED1", "EXTRACTED2"]
+                            },
+                            "Action": [{
+                                "Extract": {
+                                    "Name": "EXTRACTED3",
+                                    "Field": ["COL1"]
+                                }
+                            }, {
+                                "Extract": {
+                                    "Name": "EXTRACTED4",
+                                    "Field": ["COL3"]
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "EXTRACTED1-4",
+                            "Filter": {
+                                "Name": ["EXTRACTED1", "EXTRACTED2", "EXTRACTED3", "EXTRACTED4"]
+                            },
+                            "Continue": false
+                        }, {
+                            "Name": "RENAME",
+                            "Filter": {
+                                "Name": ["RENAME"]
+                            },
+                            "Action": [{
+                                "Rename": {
+                                    "Field": "COL1"
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "STORE",
+                            "Filter": {
+                                "Name": ["STORE"]
+                            },
+                            "Action": [{
+                                "Store": {
+                                    "Name": "STORED",
+                                    "Key": ["k1", "k2", "k3", "k4", "k5", "k6", "k7"],
+                                    "Field": ["v1", "v2", "v3", "v4", "v5", "v6", "v7"]
+                                }
+                            }, {
+                                "Purge": true
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "MERGE",
+                            "Filter": {
+                                "Name": ["MERGE"]
+                            },
+                            "Action": [{
+                                "Merge": {
+                                    "Name": "STORED",
+                                    "Key": ["k1", "k2", "k3", "k4", "k5", "k6", "k7"]
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "REMOVE",
+                            "Filter": {
+                                "Name": ["REMOVE"]
+                            },
+                            "Action": [{
+                                "Remove": {
+                                    "Field": ["COL2"]
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "PARSE",
+                            "Filter": {
+                                "Name": ["PARSE"]
+                            },
+                            "Action": [{
+                                "Parse": {
+                                    "Field": "COL2"
+                                }
+                            }],
+                            "Continue": true
+                        }, {
+                            "Name": "PARSE",
+                            "Filter": {
+                                "Name": ["PARSE"]
+                            },
+                            "Action": [{
+                                "Remove": {
+                                    "Field": ["COL2"]
+                                }
+                            }],
+                            "Continue": false
+                        }, {
+                            "Name": "DUPLICATED",
+                            "Filter": {
+                                "Name": ["DUPLICATED"]
+                            },
+                            "Action": [{
+                                "Remove": {
+                                    "Field": ["COL1", "COL2", "COL3", "COL2"]
+                                }
+                            }],
+                            "Continue": true
+                        }, {
+                            "Name": "PURGE",
+                            "Action": [{
+                                "Purge": true
+                            }]
+                        }]
+                    },
+                    "Switch": {
+                        "Paused": true
+                    }
+                },
+                "Load1": {
+                    "Command": "bin/ahwJSON",
+                    "Parameter": {
+                        "Filename": "unittest/basic1.out"
+                    },
+                    "Switch": {}
+                },
+                "Load2": {
+                    "Command": "bin/ahwJSON",
+                    "Parameter": {
+                        "Filename": "unittest/basic2.out"
+                    },
+                    "Switch": {}
+                }
+            },
+            "Pipe": [{
+                "Type": "SimpleV1",
+                "Source": {
+                    "Work": "Extract",
+                    "Pipe": "BSONOut[0]"
+                },
+                "Target": {
+                    "Work": "Transform",
+                    "Pipe": "In[0]"
+                }
+            }, {
+                "Type": "SimpleV1",
+                "Source": {
+                    "Work": "Transform",
+                    "Pipe": "Out[0]"
+                },
+                "Target": {
+                    "Work": "Load1",
+                    "Pipe": "BSONIn[0]"
+                }
+            }, {
+                "Type": "SimpleV1",
+                "Source": {
+                    "Work": "Transform",
+                    "Pipe": "Out[1]"
+                },
+                "Target": {
+                    "Work": "Load2",
+                    "Pipe": "BSONIn[0]"
+                }
+            }]
+        }
+    }, {
+        "name": "GetWorkflowList",
+        "type": "post",
+        "url": "/API/GetWorkflowList",
+        "req": {},
+        "res": {
+            "Success": true,
+            "WorkflowNames": ["basic", "json", "workflow name"]
+        }
+    }, {
+        "name": "GetWorkflow",
+        "type": "post",
+        "url": "/API/GetWorkflow",
+        "req": {
+            "WorkflowName": "workflow name"
+        },
+        "res": {
+            "Success": true,
+            "WorkflowName": "workflow name",
+            "Workflow": {
+                "Work": {
+                    "Extract": {
+                        "Command": "bin/ahwJSON",
+                        "Parameter": {
+                            "Filename": "unittest/basic.in"
+                        },
+                        "Switch": {
+                            "Paused": true
+                        }
+                    },
+                    "Transform": {
+                        "Command": "bin/ahwBasicTransformer",
+                        "Parameter": {
+                            "Transform": [{
+                                "Name": "DISTRIBUTE",
+                                "Filter": {
+                                    "Name": ["DISTRIBUTE"]
+                                },
+                                "Action": [{
+                                    "Distribute": {
+                                        "Key": ["KEY1", "KEY2"]
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "EXTRACT",
+                                "Filter": {
+                                    "Name": ["EXTRACT"]
+                                },
+                                "Action": [{
+                                    "Extract": {
+                                        "Name": "EXTRACTED1",
+                                        "Field": ["COL3", "COL1"]
+                                    }
+                                }, {
+                                    "Extract": {
+                                        "Name": "EXTRACTED2",
+                                        "Field": ["COL1"]
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "EXTRACTED1-2",
+                                "Filter": {
+                                    "Name": ["EXTRACTED1", "EXTRACTED2"]
+                                },
+                                "Action": [{
+                                    "Extract": {
+                                        "Name": "EXTRACTED3",
+                                        "Field": ["COL1"]
+                                    }
+                                }, {
+                                    "Extract": {
+                                        "Name": "EXTRACTED4",
+                                        "Field": ["COL3"]
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "EXTRACTED1-4",
+                                "Filter": {
+                                    "Name": ["EXTRACTED1", "EXTRACTED2", "EXTRACTED3", "EXTRACTED4"]
+                                },
+                                "Continue": false
+                            }, {
+                                "Name": "RENAME",
+                                "Filter": {
+                                    "Name": ["RENAME"]
+                                },
+                                "Action": [{
+                                    "Rename": {
+                                        "Field": "COL1"
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "STORE",
+                                "Filter": {
+                                    "Name": ["STORE"]
+                                },
+                                "Action": [{
+                                    "Store": {
+                                        "Name": "STORED",
+                                        "Key": ["k1", "k2", "k3", "k4", "k5", "k6", "k7"],
+                                        "Field": ["v1", "v2", "v3", "v4", "v5", "v6", "v7"]
+                                    }
+                                }, {
+                                    "Purge": true
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "MERGE",
+                                "Filter": {
+                                    "Name": ["MERGE"]
+                                },
+                                "Action": [{
+                                    "Merge": {
+                                        "Name": "STORED",
+                                        "Key": ["k1", "k2", "k3", "k4", "k5", "k6", "k7"]
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "REMOVE",
+                                "Filter": {
+                                    "Name": ["REMOVE"]
+                                },
+                                "Action": [{
+                                    "Remove": {
+                                        "Field": ["COL2"]
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "PARSE",
+                                "Filter": {
+                                    "Name": ["PARSE"]
+                                },
+                                "Action": [{
+                                    "Parse": {
+                                        "Field": "COL2"
+                                    }
+                                }],
+                                "Continue": true
+                            }, {
+                                "Name": "PARSE",
+                                "Filter": {
+                                    "Name": ["PARSE"]
+                                },
+                                "Action": [{
+                                    "Remove": {
+                                        "Field": ["COL2"]
+                                    }
+                                }],
+                                "Continue": false
+                            }, {
+                                "Name": "DUPLICATED",
+                                "Filter": {
+                                    "Name": ["DUPLICATED"]
+                                },
+                                "Action": [{
+                                    "Remove": {
+                                        "Field": ["COL1", "COL2", "COL3", "COL2"]
+                                    }
+                                }],
+                                "Continue": true
+                            }, {
+                                "Name": "PURGE",
+                                "Action": [{
+                                    "Purge": true
+                                }]
+                            }]
+                        },
+                        "Switch": {
+                            "Paused": true
+                        }
+                    },
+                    "Load1": {
+                        "Command": "bin/ahwJSON",
+                        "Parameter": {
+                            "Filename": "unittest/basic1.out"
+                        },
+                        "Switch": {}
+                    },
+                    "Load2": {
+                        "Command": "bin/ahwJSON",
+                        "Parameter": {
+                            "Filename": "unittest/basic2.out"
+                        },
+                        "Switch": {}
+                    }
+                },
+                "Pipe": [{
+                    "Type": "SimpleV1",
+                    "Source": {
+                        "Work": "Extract",
+                        "Pipe": "BSONOut[0]"
+                    },
+                    "Target": {
+                        "Work": "Transform",
+                        "Pipe": "In[0]"
+                    }
+                }, {
+                    "Type": "SimpleV1",
+                    "Source": {
+                        "Work": "Transform",
+                        "Pipe": "Out[0]"
+                    },
+                    "Target": {
+                        "Work": "Load1",
+                        "Pipe": "BSONIn[0]"
+                    }
+                }, {
+                    "Type": "SimpleV1",
+                    "Source": {
+                        "Work": "Transform",
+                        "Pipe": "Out[1]"
+                    },
+                    "Target": {
+                        "Work": "Load2",
+                        "Pipe": "BSONIn[0]"
+                    }
+                }]
+            },
+            "Favorite": true
+        }
+    }, {
+        "name": "ModifyWorkflow",
+        "type": "post",
+        "url": "/API/ModifyWorkflow",
+        "req": {
+            "WorkflowName": "workflow name",
+            "Favorite": false
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "ModifyWorkflow",
+        "type": "post",
+        "url": "/API/ModifyWorkflow",
+        "req": {
+            "WorkflowName": "workflow name",
+            "Favorite": true
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "StartWorkflow",
+        "type": "post",
+        "url": "/API/StartWorkflow",
+        "req": {
+            "WorkflowName": "workflow name"
+        },
+        "res": {"Success":true,"Work":{"Extract":{"Command":"bin/ahwJSON","Parameter":{"Filename":"unittest/basic.in"},"Switch":{"Paused":true}},"Transform":{"Command":"bin/ahwBasicTransformer","Parameter":{"Transform":[{"Name":"DISTRIBUTE","Filter":{"Name":["DISTRIBUTE"]},"Action":[{"Distribute":{"Key":["KEY1","KEY2"]}}],"Continue":false},{"Name":"EXTRACT","Filter":{"Name":["EXTRACT"]},"Action":[{"Extract":{"Name":"EXTRACTED1","Field":["COL3","COL1"]}},{"Extract":{"Name":"EXTRACTED2","Field":["COL1"]}}],"Continue":false},{"Name":"EXTRACTED1-2","Filter":{"Name":["EXTRACTED1","EXTRACTED2"]},"Action":[{"Extract":{"Name":"EXTRACTED3","Field":["COL1"]}},{"Extract":{"Name":"EXTRACTED4","Field":["COL3"]}}],"Continue":false},{"Name":"EXTRACTED1-4","Filter":{"Name":["EXTRACTED1","EXTRACTED2","EXTRACTED3","EXTRACTED4"]},"Continue":false},{"Name":"RENAME","Filter":{"Name":["RENAME"]},"Action":[{"Rename":{"Field":"COL1"}}],"Continue":false},{"Name":"STORE","Filter":{"Name":["STORE"]},"Action":[{"Store":{"Name":"STORED","Key":["k1","k2","k3","k4","k5","k6","k7"],"Field":["v1","v2","v3","v4","v5","v6","v7"]}},{"Purge":true}],"Continue":false},{"Name":"MERGE","Filter":{"Name":["MERGE"]},"Action":[{"Merge":{"Name":"STORED","Key":["k1","k2","k3","k4","k5","k6","k7"]}}],"Continue":false},{"Name":"REMOVE","Filter":{"Name":["REMOVE"]},"Action":[{"Remove":{"Field":["COL2"]}}],"Continue":false},{"Name":"PARSE","Filter":{"Name":["PARSE"]},"Action":[{"Parse":{"Field":"COL2"}}],"Continue":true},{"Name":"PARSE","Filter":{"Name":["PARSE"]},"Action":[{"Remove":{"Field":["COL2"]}}],"Continue":false},{"Name":"DUPLICATED","Filter":{"Name":["DUPLICATED"]},"Action":[{"Remove":{"Field":["COL1","COL2","COL3","COL2"]}}],"Continue":true},{"Name":"PURGE","Action":[{"Purge":true}]}]},"Switch":{"Paused":true}},"Load1":{"Command":"bin/ahwJSON","Parameter":{"Filename":"unittest/basic1.out"},"Switch":{}},"Load2":{"Command":"bin/ahwJSON","Parameter":{"Filename":"unittest/basic2.out"},"Switch":{}}},"Pipe":[{"Type":"SimpleV1","Source":{"Work":"Extract","Pipe":"BSONOut[0]"},"Target":{"Work":"Transform","Pipe":"In[0]"}},{"Type":"SimpleV1","Source":{"Work":"Transform","Pipe":"Out[0]"},"Target":{"Work":"Load1","Pipe":"BSONIn[0]"}},{"Type":"SimpleV1","Source":{"Work":"Transform","Pipe":"Out[1]"},"Target":{"Work":"Load2","Pipe":"BSONIn[0]"}}]}
+    }, {
+        "name": "GetWorkflowStatusList",
+        "type": "post",
+        "url": "/API/GetWorkflowStatusList",
+        "req": {
+            "Favorite": true
+        },
+        "res": {"Success":true,"StatusList":[{"WorkflowName":"workflow name","Workflow":{"Work":{"Extract":{"Status":{"ProcessedRows":0},"Switch":{"Paused":true,"StatusRefreshInterval":0}},"Transform":{"Status":{"ProcessedRows":0,"Transform":[{"Name":"DISTRIBUTE","ProcessedRows":0},{"Name":"EXTRACT","ProcessedRows":0},{"Name":"EXTRACTED1-2","ProcessedRows":0},{"Name":"EXTRACTED1-4","ProcessedRows":0},{"Name":"RENAME","ProcessedRows":0},{"Name":"STORE","ProcessedRows":0},{"Name":"MERGE","ProcessedRows":0},{"Name":"REMOVE","ProcessedRows":0},{"Name":"PARSE","ProcessedRows":0},{"Name":"PARSE","ProcessedRows":0},{"Name":"DUPLICATED","ProcessedRows":0},{"Name":"PURGE","ProcessedRows":0}]},"Switch":{"Paused":true,"StatusRefreshInterval":0}},"Load1":{"Status":{"ProcessedRows":0},"Switch":{"Paused":false,"StatusRefreshInterval":0}},"Load2":{"Status":{"ProcessedRows":0},"Switch":{"Paused":false,"StatusRefreshInterval":0}}}}}]}
+    }, {
+        "name": "GetWorkStatus",
+        "type": "post",
+        "url": "/API/GetWorkStatus",
+        "req": {
+            "WorkflowName": "workflow name",
+            "WorkName": "Extract"
+        },
+        "res": {"Success":true,"Status":{"ProcessedRows":0}}
+    }, {
+        "name": "GetWorkSwitch",
+        "type": "post",
+        "url": "/API/GetWorkSwitch",
+        "req": {
+            "WorkflowName": "workflow name",
+            "WorkName": "Extract"
+        },
+        "res": {"Success":true,"Switch":{"Paused":true,"StatusRefreshInterval":0}}
+    }, {
+        "name": "SetWorkSwitch",
+        "type": "post",
+        "url": "/API/SetWorkSwitch",
+        "req": {
+            "WorkflowName": "workflow name",
+            "WorkName": "Extract",
+            "Switch": {
+                "Switch": {
+                    "Paused":true,
+                    "StatusRefreshInterval":1
+                }
+            }
+        },
+        "res": {"Success":true,"Switch":{"Paused":true,"StatusRefreshInterval":1}}
+    }, {
+        "name": "GetWorkSwitch",
+        "type": "post",
+        "url": "/API/GetWorkSwitch",
+        "req": {
+            "WorkflowName": "workflow name",
+            "WorkName": "Extract"
+        },
+        "res": {"Success":true,"Switch":{"Paused":true,"StatusRefreshInterval":1}}
+    }, {
+        "name": "StopWorkflow",
+        "type": "post",
+        "url": "/API/StopWorkflow",
+        "req": {
+            "WorkflowName": "workflow name"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "RemoveWorkflow",
+        "type": "post",
+        "url": "/API/RemoveWorkflow",
+        "req": {
+            "WorkflowName": "workflow name"
+        },
+        "res": {
+            "Success": true
         }
     }]
 }

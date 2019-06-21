@@ -122,12 +122,91 @@
             "res": {
                 "Success": true
             }
-
-
-
-
-
-
+        }, {
+            "name": "ModifySchema (odbc) (no data)",
+            "type": "post",
+            "url": "/API/ModifySchema",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t2",
+                "Columns": [{
+                    "ColumnName": "c1",
+                    "ColumnType": "integer",
+                    "ColumnSize": 0,
+                    "DecimalDigit": 0
+                }, {
+                    "ColumnName": "c2",
+                    "ColumnType": "text",
+                    "ColumnSize": 8190,
+                    "DecimalDigit": 0
+                }],
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            },
+            "res": {
+                "Success": false,
+                "ErrorCode": 1,
+                "ErrorFile": ["sources/fdSQLite.c", "sources/ahSchema.c", "sources/fpHTTP.c"],
+                "ErrorLine": [599, 932, 1337],
+                "ErrorFunc": ["fdSQLite_fetch", "ahSchema_modify", "fpHTTP_worker"],
+                "ErrorMessage": "SQLITE: NO DATA"
+            }
+        }, {
+            "name": "ModifySchema (odbc)",
+            "type": "post",
+            "url": "/API/ModifySchema",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1",
+                "Columns": [{
+                    "ColumnName": "c1",
+                    "ColumnType": "integer",
+                    "ColumnSize": 0,
+                    "DecimalDigit": 0
+                }],
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "GetSchema (odbc)",
+            "type": "post",
+            "url": "/API/GetSchema",
+            "req": {
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "odbc connection",
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1",
+                "TableType": "Table",
+                "Columns": [{
+                    "ColumnName": "c1",
+                    "Expression": "",
+                    "ColumnType": "integer",
+                    "ColumnSize": 0,
+                    "DecimalDigit": 0
+                }],
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }
         }, {
             "name": "RemoveSchema (odbc)",
             "type": "post",

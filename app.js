@@ -3,6 +3,7 @@ const should = require('chai').should();
 var server = supertest.agent("http://localhost:9671");
 const assert = require('assert'); // Node.js `assert` module
 const conn = require('./data/connection.json')
+const sleep = require('thread-sleep')
 
 module.exports = {
   sayHello: function () {
@@ -34,6 +35,7 @@ module.exports = {
   },
   post: function (done, data) {
     // let contentType = data.contentType === undefined ? /json/ : data.contentType;
+    sleep(50);
     server
       .post(data.url)
       .send(data.req)

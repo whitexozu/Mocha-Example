@@ -1,7 +1,46 @@
 {
     "Success": true,
-    "DBMSName": "PostgreSQL",
-    "DBMSVersion": "10.0.4"
+    "StatusList": [{
+        "WorkflowName": "workflow name",
+        "Workflow": {
+            "Work": {
+                "Extract": {
+                    "Status": {
+                        "ProcessedRows": 0
+                    },
+                    "Switch": {
+                        "Paused": true,
+                        "StatusRefreshInterval": 0
+                    }
+                },
+                "Transform": {
+                    "Status": {
+                        "ProcessedRows": 0
+                    },
+                    "Switch": {
+                        "Paused": true,
+                        "StatusRefreshInterval": 0
+                    }
+                },
+                "Load1": {
+                    "Status": {
+                        "ProcessedRows": 0
+                    },
+                    "Switch": {
+                        "Paused": false,
+                        "StatusRefreshInterval": 0
+                    }
+                },
+                "Load2": {
+                    "Status": {
+                        "ProcessedRows": 0
+                    },
+                    "Switch": {
+                        "Paused": false,
+                        "StatusRefreshInterval": 0
+                    }
+                }
+            }
+        }
+    }]
 }
-
-
