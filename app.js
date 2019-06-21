@@ -35,7 +35,7 @@ module.exports = {
   },
   post: function (done, data) {
     // let contentType = data.contentType === undefined ? /json/ : data.contentType;
-    sleep(50);
+    // sleep(50);
     server
       .post(data.url)
       .send(data.req)
