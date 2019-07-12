@@ -7,14 +7,17 @@ const app = require('../app');
 // const conn = require('../data/connection.json')
 // const conn = require('../data/sequence.json')
 // const conn = require('../data/schema.json')
-const conn = require('../data/workflow.json')
+// const conn = require('../data/workflow.json')
+const conn = require('../data/jhtest.json')
 
 let use = true;
 let req, res;
+
 // let describeName = 'Connection';
 // let describeName = 'Sequence';
 // let describeName = 'Schema';
-let describeName = 'Workflow';
+let describeName = 'Agensgraph';
+// let describeName = 'Oracle';
 
 
 // let itName = 'GetConnectionList';
@@ -30,10 +33,13 @@ let describeName = 'Workflow';
 // let itName = 'RemoveSchema (AgensGarph - edge)';
 
 
-// let itName = 'AddWorkflow';
-// let itName = 'GetWorkflowList';
-// let itName = 'GetWorkflow';
-// let itName = 'StartWorkflow';
+// let itName = 'AddConnection';
+// let itName = 'TestConnection';
+// let itName = 'GetConnectionList';
+// let itName = 'AddSchema';
+// let itName = 'GetSchemaList';
+let itName = 'CollectSchema';
+// let itName = 'RemoveConnection';
 
 
 // let itName = 'ModifyWorkflow';
@@ -42,7 +48,7 @@ let describeName = 'Workflow';
 // let itName = 'StopWorkflow';
 // let itName = 'GetWorkSwitch';
 // let itName = 'SetWorkSwitch';
-let itName = 'RemoveWorkflow';
+// let itName = 'RemoveWorkflow';
 
 
 
