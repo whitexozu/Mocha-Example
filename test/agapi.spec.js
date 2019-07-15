@@ -37,8 +37,9 @@ let describeName = 'Agensgraph';
 // let itName = 'TestConnection';
 // let itName = 'GetConnectionList';
 // let itName = 'AddSchema';
-// let itName = 'GetSchemaList';
-let itName = 'CollectSchema';
+let itName = 'GetSchemaList';
+// let itName = 'CollectSchema';
+// let itName = 'GetConnection';
 // let itName = 'RemoveConnection';
 
 

@@ -6,5 +6,8 @@
     "chai": "^4.2.0",
     "supertest": "^4.0.2",
     "thread-sleep": "^2.2.0"
+  },
+  "dependencies": {
+    "mocha": "^6.1.4"
   }
 }

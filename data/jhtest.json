@@ -143,6 +143,24 @@
             "res": {
                 "Success": true
             }
+        }, {
+            "name": "GetConnection",
+            "type": "post",
+            "url": "/API/GetConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "SequenceTable":"",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }
         }],
     "Oracle": [{
         "name": "AddConnection",
