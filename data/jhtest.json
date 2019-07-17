@@ -78,6 +78,60 @@
                 }]
             }
         }, {
+            "name": "GetSchemaList",
+            "type": "post",
+            "url": "/API/GetSchemaList",
+            "req": {
+                "ConnectionName": "pg connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "pg connection",
+                "Tables": [{
+                    "CatalogName": "catalog",
+                    "SchemaName": "public",
+                    "TableName": "t1",
+                    "TableType": "Table",
+                    "SequenceColumn": "",
+                    "Opaque": {
+                        "opaque": "111"
+                    }
+                }]
+            }
+        }, {
+            "name": "CollectSchema",
+            "type": "post",
+            "url": "/API/CollectSchema",
+            "req": {
+                "ConnectionName": "pg connection"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "ModifySchema",
+            "type": "post",
+            "url": "/API/ModifySchema",
+            "req": {
+                "ConnectionName": "pg connection",
+                "CatalogName": "jhkim",
+                "SchemaName": "network",
+                "TableName": "t1",
+                "Columns": [{
+                    "ColumnName": "c1",
+                    "ColumnType": "integer",
+                    "ColumnSize": 0,
+                    "DecimalDigit": 0
+                }],
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
             "name": "GetSchema",
             "type": "post",
             "url": "/API/GetSchema",
@@ -111,37 +165,6 @@
                 "Opaque": {
                     "opaque": "111"
                 }
-            }
-        }, {
-            "name": "GetSchemaList",
-            "type": "post",
-            "url": "/API/GetSchemaList",
-            "req": {
-                "ConnectionName": "pg connection"
-            },
-            "res": {
-                "Success": true,
-                "ConnectionName": "pg connection",
-                "Tables": [{
-                    "CatalogName": "catalog",
-                    "SchemaName": "public",
-                    "TableName": "t1",
-                    "TableType": "Table",
-                    "SequenceColumn": "",
-                    "Opaque": {
-                        "opaque": "111"
-                    }
-                }]
-            }
-        }, {
-            "name": "CollectSchema",
-            "type": "post",
-            "url": "/API/CollectSchema",
-            "req": {
-                "ConnectionName": "pg connection"
-            },
-            "res": {
-                "Success": true
             }
         }],
     "Oracle": [{
