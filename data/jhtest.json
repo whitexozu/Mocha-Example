@@ -166,6 +166,58 @@
                     "opaque": "111"
                 }
             }
+<<<<<<< HEAD
+=======
+        }, {
+            "name": "GetSchemaList",
+            "type": "post",
+            "url": "/API/GetSchemaList",
+            "req": {
+                "ConnectionName": "pg connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "pg connection",
+                "Tables": [{
+                    "CatalogName": "catalog",
+                    "SchemaName": "public",
+                    "TableName": "t1",
+                    "TableType": "Table",
+                    "SequenceColumn": "",
+                    "Opaque": {
+                        "opaque": "111"
+                    }
+                }]
+            }
+        }, {
+            "name": "CollectSchema",
+            "type": "post",
+            "url": "/API/CollectSchema",
+            "req": {
+                "ConnectionName": "pg connection"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "GetConnection",
+            "type": "post",
+            "url": "/API/GetConnection",
+            "req": {
+                "ConnectionName": "odbc connection"
+            },
+            "res": {
+                "Success": true,
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "SequenceTable":"",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }
+>>>>>>> d0e2f62cac7fa4c28dd05be5be140f3d73dfc0b6
         }],
     "Oracle": [{
         "name": "AddConnection",
