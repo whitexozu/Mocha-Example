@@ -1,5 +1,64 @@
 {
-    "Agensgraph": [{
+    "AgensGraph": [{
+        "name": "AddConnection",
+        "type": "post",
+        "url": "/API/AddConnection",
+        "req": {
+            "ConnectionName": "ag connection",
+            "ConnectionType": "AgensGraph",
+            "ConnectionString": "postgresql://jhkim@localhost:5432/jhkim",
+            "Initializer": "SET GRAPH_PATH TO network",
+            "Opaque": {
+                "opaque": ""
+            }
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "TestConnection",
+        "type": "post",
+        "url": "/API/TestConnection",
+        "req": {
+            "ConnectionName": "ag connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "CollectSchema",
+        "type": "post",
+        "url": "/API/CollectSchema",
+        "req": {
+            "ConnectionName": "ag connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "RemoveConnection",
+        "type": "post",
+        "url": "/API/RemoveConnection",
+        "req": {
+            "ConnectionName": "ag connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSequence",
+        "type": "post",
+        "url": "/API/GetSequence",
+        "req": {
+            "ConnectionName": "pg6"
+        },
+        "res": {
+            "Success": true,
+            "SequenceTable": "test sequence name",
+            "SequenceRows": []
+        }
+    }],
+    "postgresql": [{
             "name": "AddConnection",
             "type": "post",
             "url": "/API/AddConnection",
@@ -26,6 +85,24 @@
                 "Success": true,
                 "DBMSName": "PostgreSQL",
                 "DBMSVersion": "10.0.4"
+            }
+        }, {
+            "name": "GetConnectionList",
+            "type": "get",
+            "url": "/API/GetConnectionList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "Connections": [{
+                    "ConnectionName": "odbc connection",
+                    "ConnectionType": "ODBC",
+                    "ConnectionString": "DSN=agensgraph",
+                    "Initializer": "SET GRAPH_PATH TO GRAPH",
+                    "SequenceTable": "",
+                    "Opaque": {
+                        "opaque": "111"
+                    }
+                }]
             }
         }, {
             "name": "AddSchema",
@@ -166,8 +243,6 @@
                     "opaque": "111"
                 }
             }
-<<<<<<< HEAD
-=======
         }, {
             "name": "GetSchemaList",
             "type": "post",
@@ -212,13 +287,177 @@
                 "ConnectionType": "ODBC",
                 "ConnectionString": "DSN=agensgraph",
                 "Initializer": "SET GRAPH_PATH TO GRAPH",
-                "SequenceTable":"",
+                "SequenceTable": "",
                 "Opaque": {
                     "opaque": "111"
                 }
             }
->>>>>>> d0e2f62cac7fa4c28dd05be5be140f3d73dfc0b6
-        }],
+        },
+        {
+            "name": "RemoveConnection",
+            "type": "post",
+            "url": "/API/RemoveConnection",
+            "req": {
+                "ConnectionName": ""
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "AddWorkflow",
+            "type": "post",
+            "url": "/API/AddWorkflow",
+            "req": {
+                "WorkflowName": "new workflow",
+                "Workflow": {
+                    "Work": {
+                        "Extract": {
+                            "Command": "bin/ahwODBCExtractor",
+                            "Parameter": {
+                                "DataSource": "DSN=agensgraph",
+                                "Initializer": "SET GRAPH_PATH TO network",
+                                "Extract": [{
+                                    "Name": "auth",
+                                    "Query": "select * from auth_roles",
+                                    "Sequence": "SEQ123"
+                                }]
+                            },
+                            "Switch": {
+                                "Paused": true
+                            }
+                        },
+                        "Load1": {
+                            "Command": "bin/ahwPQLoader",
+                            "Parameter": {
+                                "Loader": "load1 loader",
+                                "ConnInfo": "",
+                                "Initializer": "SET GRAPH_PATH TO network",
+                                "Load": [ {
+                                    "Name": "auth",
+                                    "Query": "create (:auth_roles_vlabel {uuid:$uuid,name:$name})" 
+                                }]
+                            }
+                        }
+                    },
+                    "Pipe": [{
+                            "Type": "SimpleV1",
+                            "Source": {
+                                "Work": "Extract",
+                                "Pipe": "Out[0]"
+                            },
+                            "Target": {
+                                "Work": "Load1",
+                                "Pipe": "In[0]"
+                            }
+                        }
+                    ]
+                },
+                "Favorite": true
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "GetWorkflowList",
+            "type": "post",
+            "url": "/API/GetWorkflowList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "WorkflowNames": ["basic", "json", "new workflow"]
+            }
+        }, {
+            "name": "StartWorkflow",
+            "type": "post",
+            "url": "/API/StartWorkflow",
+            "req": {
+                "WorkflowName": "new workflow"
+            },
+            "res": {"Success":true,"Work":{"Extract":{"Command":"bin/ahwJSON","Parameter":{"Filename":"unittest/basic.in"},"Switch":{"Paused":true}},"Transform":{"Command":"bin/ahwBasicTransformer","Parameter":{"Transform":[{"Name":"DISTRIBUTE","Filter":{"Name":["DISTRIBUTE"]},"Action":[{"Distribute":{"Key":["KEY1","KEY2"]}}],"Continue":false},{"Name":"EXTRACT","Filter":{"Name":["EXTRACT"]},"Action":[{"Extract":{"Name":"EXTRACTED1","Field":["COL3","COL1"]}},{"Extract":{"Name":"EXTRACTED2","Field":["COL1"]}}],"Continue":false},{"Name":"EXTRACTED1-2","Filter":{"Name":["EXTRACTED1","EXTRACTED2"]},"Action":[{"Extract":{"Name":"EXTRACTED3","Field":["COL1"]}},{"Extract":{"Name":"EXTRACTED4","Field":["COL3"]}}],"Continue":false},{"Name":"EXTRACTED1-4","Filter":{"Name":["EXTRACTED1","EXTRACTED2","EXTRACTED3","EXTRACTED4"]},"Continue":false},{"Name":"RENAME","Filter":{"Name":["RENAME"]},"Action":[{"Rename":{"Field":"COL1"}}],"Continue":false},{"Name":"STORE","Filter":{"Name":["STORE"]},"Action":[{"Store":{"Name":"STORED","Key":["k1","k2","k3","k4","k5","k6","k7"],"Field":["v1","v2","v3","v4","v5","v6","v7"]}},{"Purge":true}],"Continue":false},{"Name":"MERGE","Filter":{"Name":["MERGE"]},"Action":[{"Merge":{"Name":"STORED","Key":["k1","k2","k3","k4","k5","k6","k7"]}}],"Continue":false},{"Name":"REMOVE","Filter":{"Name":["REMOVE"]},"Action":[{"Remove":{"Field":["COL2"]}}],"Continue":false},{"Name":"PARSE","Filter":{"Name":["PARSE"]},"Action":[{"Parse":{"Field":"COL2"}}],"Continue":true},{"Name":"PARSE","Filter":{"Name":["PARSE"]},"Action":[{"Remove":{"Field":["COL2"]}}],"Continue":false},{"Name":"DUPLICATED","Filter":{"Name":["DUPLICATED"]},"Action":[{"Remove":{"Field":["COL1","COL2","COL3","COL2"]}}],"Continue":true},{"Name":"PURGE","Action":[{"Purge":true}]}]},"Switch":{"Paused":true}},"Load1":{"Command":"bin/ahwJSON","Parameter":{"Filename":"unittest/basic1.out"},"Switch":{}},"Load2":{"Command":"bin/ahwJSON","Parameter":{"Filename":"unittest/basic2.out"},"Switch":{}}},"Pipe":[{"Type":"SimpleV1","Source":{"Work":"Extract","Pipe":"BSONOut[0]"},"Target":{"Work":"Transform","Pipe":"In[0]"}},{"Type":"SimpleV1","Source":{"Work":"Transform","Pipe":"Out[0]"},"Target":{"Work":"Load1","Pipe":"BSONIn[0]"}},{"Type":"SimpleV1","Source":{"Work":"Transform","Pipe":"Out[1]"},"Target":{"Work":"Load2","Pipe":"BSONIn[0]"}}]}
+        }, {
+            "name": "StopWorkflow",
+            "type": "post",
+            "url": "/API/StopWorkflow",
+            "req": {
+                "WorkflowName": "new workflow"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "RemoveWorkflow",
+            "type": "post",
+            "url": "/API/RemoveWorkflow",
+            "req": {
+                "WorkflowName": "new workflow"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "GetWorkSwitch",
+            "type": "post",
+            "url": "/API/GetWorkSwitch",
+            "req": {
+                "WorkflowName": "new workflow",
+                "WorkName": "Extract"
+            },
+            "res": {"Success":true,"Switch":{"Paused":true,"StatusRefreshInterval":0}}
+        }, {
+            "name": "SetWorkSwitch",
+            "type": "post",
+            "url": "/API/SetWorkSwitch",
+            "req": {
+                "WorkflowName": "new workflow",
+                "WorkName": "Extract",
+                "Switch": {
+                    "Switch": {
+                        "Paused":false,
+                        "StatusRefreshInterval":1
+                    }
+                }
+            },
+            "res": {"Success":true,"Switch":{"Paused":true,"StatusRefreshInterval":1}}
+        }, {
+            "name": "GetModelList",
+            "type": "post",
+            "url": "/API/GetModelList",
+            "req": {},
+            "res": {
+                "Success": true,
+                "Models": [
+                    {
+                        "ModelName": "model1",
+                        "Summery": {
+                            "Summery": ""
+                        }
+                    },
+                    {
+                        "ModelName": "model2",
+                        "Summery": {
+                            "Summery": ""
+                        }
+                    }
+                ]
+            }
+        }, {
+            "name": "AddModel",
+            "type": "post",
+            "url": "/API/AddModel",
+            "req": {
+                "ModelName": "model1",
+                "Summery": {
+                    "Summery": ""
+                },
+                "Model": {
+                    "Model": ""
+                }
+            },
+            "res": {
+                "Success": true
+            }
+        }
+    ],
     "Oracle": [{
         "name": "AddConnection",
         "type": "post",
@@ -254,18 +493,16 @@
         "req": {},
         "res": {
             "Success": true,
-            "Connections": [
-                {
-                    "ConnectionName": "odbc connection",
-                    "ConnectionType": "ODBC",
-                    "ConnectionString": "DSN=agensgraph",
-                    "Initializer": "SET GRAPH_PATH TO GRAPH",
-                    "SequenceTable": "",
-                    "Opaque": {
-                        "opaque": "111"
-                    }
+            "Connections": [{
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "SequenceTable": "",
+                "Opaque": {
+                    "opaque": "111"
                 }
-            ]
+            }]
         }
     }, {
         "name": "AddSchema",

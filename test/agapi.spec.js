@@ -16,7 +16,8 @@ let req, res;
 // let describeName = 'Connection';
 // let describeName = 'Sequence';
 // let describeName = 'Schema';
-let describeName = 'Agensgraph';
+// let describeName = 'AgensGraph';
+let describeName = 'postgresql';
 // let describeName = 'Oracle';
 
 
@@ -37,16 +38,26 @@ let describeName = 'Agensgraph';
 // let itName = 'TestConnection';
 // let itName = 'GetConnectionList';
 // let itName = 'AddSchema';
-let itName = 'GetSchemaList';
+// let itName = 'GetSchemaList';
 // let itName = 'CollectSchema';
 // let itName = 'GetConnection';
 // let itName = 'RemoveConnection';
+// let itName = 'GetSequence';
 
+
+let itName = 'GetModelList';
+// let itName = 'AddModel';
+
+
+
+// let itName = 'GetWorkflowList';
+// let itName = 'AddWorkflow';
+// let itName = 'StartWorkflow';
+// let itName = 'StopWorkflow';
 
 // let itName = 'ModifyWorkflow';
 // let itName = 'GetWorkflowStatusList';
 
-// let itName = 'StopWorkflow';
 // let itName = 'GetWorkSwitch';
 // let itName = 'SetWorkSwitch';
 // let itName = 'RemoveWorkflow';
