@@ -1,0 +1,154 @@
+{
+    "Oracle": [{
+        "name": "AddConnection",
+        "type": "post",
+        "url": "/API/AddConnection",
+        "req": {
+            "ConnectionName": "oracle connection",
+            "ConnectionType": "ODBC",
+            "ConnectionString": "DSN=oracle",
+            "Initializer": "select * from dual;",
+            "Opaque": {
+                "opaque": "111"
+            }
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "TestConnection",
+        "type": "post",
+        "url": "/API/TestConnection",
+        "req": {
+            "ConnectionName": "oracle connection"
+        },
+        "res": {
+            "Success": true,
+            "DBMSName": "Oracle",
+            "DBMSVersion": "11.02.0020"
+        }
+    }, {
+        "name": "GetConnectionList",
+        "type": "get",
+        "url": "/API/GetConnectionList",
+        "req": {},
+        "res": {
+            "Success": true,
+            "Connections": [{
+                "ConnectionName": "odbc connection",
+                "ConnectionType": "ODBC",
+                "ConnectionString": "DSN=agensgraph",
+                "Initializer": "SET GRAPH_PATH TO GRAPH",
+                "SequenceTable": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }]
+        }
+    }, {
+        "name": "AddSchema",
+        "type": "post",
+        "url": "/API/AddSchema",
+        "req": {
+            "ConnectionName": "oracle connection",
+            "CatalogName": "catalog",
+            "SchemaName": "public",
+            "TableName": "t1",
+            "TableType": "Table",
+            "Columns": [{
+                "ColumnName": "c1",
+                "ColumnType": "integer",
+                "ColumnSize": 0,
+                "DecimalDigit": 0
+            }, {
+                "ColumnName": "c2",
+                "ColumnType": "text",
+                "ColumnSize": 8190,
+                "DecimalDigit": 0
+            }],
+            "SequenceColumn": "",
+            "Opaque": {
+                "opaque": "111"
+            }
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSchema",
+        "type": "post",
+        "url": "/API/GetSchema",
+        "req": {
+            "ConnectionName": "oracle connection",
+            "CatalogName": "catalog",
+            "SchemaName": "public",
+            "TableName": "t1"
+        },
+        "res": {
+            "Success": true,
+            "ConnectionName": "oracle connection",
+            "CatalogName": "catalog",
+            "SchemaName": "public",
+            "TableName": "t1",
+            "TableType": "Table",
+            "Columns": [{
+                "ColumnName": "c1",
+                "Expression": "",
+                "ColumnType": "integer",
+                "ColumnSize": 0,
+                "DecimalDigit": 0
+            }, {
+                "ColumnName": "c2",
+                "Expression": "",
+                "ColumnType": "text",
+                "ColumnSize": 8190,
+                "DecimalDigit": 0
+            }],
+            "SequenceColumn": "",
+            "Opaque": {
+                "opaque": "111"
+            }
+        }
+    }, {
+        "name": "GetSchemaList",
+        "type": "post",
+        "url": "/API/GetSchemaList",
+        "req": {
+            "ConnectionName": "oracle connection"
+        },
+        "res": {
+            "Success": true,
+            "ConnectionName": "odbc connection",
+            "Tables": [{
+                "CatalogName": "catalog",
+                "SchemaName": "public",
+                "TableName": "t1",
+                "TableType": "Table",
+                "SequenceColumn": "",
+                "Opaque": {
+                    "opaque": "111"
+                }
+            }]
+        }
+    }, {
+        "name": "CollectSchema",
+        "type": "post",
+        "url": "/API/CollectSchema",
+        "req": {
+            "ConnectionName": "oracle connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "RemoveConnection",
+        "type": "post",
+        "url": "/API/RemoveConnection",
+        "req": {
+            "ConnectionName": "oracle connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }]
+}

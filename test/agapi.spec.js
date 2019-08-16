@@ -40,23 +40,28 @@ let describeName = 'postgresql';
 // let itName = 'AddSchema';
 // let itName = 'GetSchemaList';
 // let itName = 'CollectSchema';
-// let itName = 'GetConnection';
+let itName = 'GetConnection';
 // let itName = 'RemoveConnection';
 // let itName = 'GetSequence';
 
 
-let itName = 'GetModelList';
+// let itName = 'GetModelList';
 // let itName = 'AddModel';
+// let itName = 'GetModel';
+
 
 
 
 // let itName = 'GetWorkflowList';
 // let itName = 'AddWorkflow';
+// let itName = 'GetWorkflow';
 // let itName = 'StartWorkflow';
 // let itName = 'StopWorkflow';
-
+// let itName = 'RemoveWorkflow';
 // let itName = 'ModifyWorkflow';
+
 // let itName = 'GetWorkflowStatusList';
+// let itName = 'GetWorkStatus';
 
 // let itName = 'GetWorkSwitch';
 // let itName = 'SetWorkSwitch';

@@ -1,0 +1,61 @@
+{
+    "AgensGraph": [{
+        "name": "AddConnection",
+        "type": "post",
+        "url": "/API/AddConnection",
+        "req": {
+            "ConnectionName": "ag connection",
+            "ConnectionType": "AgensGraph",
+            "ConnectionString": "postgresql://jhkim@localhost:5432/jhkim",
+            "Initializer": "SET GRAPH_PATH TO network",
+            "Opaque": {
+                "opaque": ""
+            }
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "TestConnection",
+        "type": "post",
+        "url": "/API/TestConnection",
+        "req": {
+            "ConnectionName": "ag connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "CollectSchema",
+        "type": "post",
+        "url": "/API/CollectSchema",
+        "req": {
+            "ConnectionName": "ag connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "RemoveConnection",
+        "type": "post",
+        "url": "/API/RemoveConnection",
+        "req": {
+            "ConnectionName": "ag connection"
+        },
+        "res": {
+            "Success": true
+        }
+    }, {
+        "name": "GetSequence",
+        "type": "post",
+        "url": "/API/GetSequence",
+        "req": {
+            "ConnectionName": "pg6"
+        },
+        "res": {
+            "Success": true,
+            "SequenceTable": "test sequence name",
+            "SequenceRows": []
+        }
+    }]
+}
