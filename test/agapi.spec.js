@@ -22,6 +22,7 @@ let describeName = 'postgresql';
 
 
 // let itName = 'GetConnectionList';
+// let itName = 'GetConnection';
 // let itName = 'AddConnection';
 // let itName = 'TestConnection';
 // let itName = 'RemoveConnection';
@@ -38,16 +39,17 @@ let describeName = 'postgresql';
 // let itName = 'TestConnection';
 // let itName = 'GetConnectionList';
 // let itName = 'AddSchema';
+// let itName = 'GetSchema';
 // let itName = 'GetSchemaList';
 // let itName = 'CollectSchema';
-let itName = 'GetConnection';
+// let itName = 'GetConnection';
 // let itName = 'RemoveConnection';
 // let itName = 'GetSequence';
 
 
 // let itName = 'GetModelList';
 // let itName = 'AddModel';
-// let itName = 'GetModel';
+let itName = 'GetModel';
 
 
 
