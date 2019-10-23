@@ -404,6 +404,49 @@
                     "Model": ""
                 }
             }
+        }, {
+            "name": "GetSequence",
+            "type": "post",
+            "url": "/API/GetSequence",
+            "req": {
+                "ConnectionName": "AG1"
+            },
+            "res": {
+                "Success": true,
+                "SequenceTable": "test sequence name",
+                "SequenceRows": []
+            }
+        }, {
+            "name": "ModifySequence",
+            "type": "post",
+            "url": "/API/ModifySequence",
+            "req": {
+                "ConnectionName": "AG1",
+                "Query": "query modify"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "ClearSequence",
+            "type": "post",
+            "url": "/API/ClearSequence",
+            "req": {
+                "ConnectionName": "agens graph connection"
+            },
+            "res": {
+                "Success": true
+            }
+        }, {
+            "name": "RemoveSequence",
+            "type": "post",
+            "url": "/API/RemoveSequence",
+            "req": {
+                "ConnectionName": "AG1"
+            },
+            "res": {
+                "Success": true
+            }
         }
     ]
 }

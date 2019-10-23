@@ -49,9 +49,7 @@ let describeName = 'postgresql';
 
 // let itName = 'GetModelList';
 // let itName = 'AddModel';
-let itName = 'GetModel';
-
-
+// let itName = 'GetModel';
 
 
 // let itName = 'GetWorkflowList';
@@ -68,6 +66,10 @@ let itName = 'GetModel';
 // let itName = 'GetWorkSwitch';
 // let itName = 'SetWorkSwitch';
 // let itName = 'RemoveWorkflow';
+
+// let itName = 'GetSequence';
+let itName = 'RemoveSequence';
+
 
 
 
